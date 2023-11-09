@@ -1,0 +1,142 @@
+//the code::
+
+//puzzle
+let puzzle = [[ 8,9,5,   7,4,2,   1,3,6 ],
+              [ 2,7,1,   9,6,3,   4,8,5 ],
+              [ 4,6,3,   5,8,1,   7,9,2 ],
+
+              [ 9,3,4,   6,1,7,   2,5,8 ],
+              [ 5,1,7,   2,3,8,   9,6,4 ],
+              [ 6,8,2,   4,5,9,   3,7,1 ],
+
+              [ 1,5,9,   8,7,4,   6,2,3 ],
+              [ 7,4,6,   3,2,5,   8,1,9 ],
+              [ 3,2,8,   1,9,6,   5,4,7 ]];
+
+
+//puzzle 2
+let puzzleTwo = [[ 8,9,5,7,4,2,1,3,6 ],
+                [ 8,7,1,9,6,3,4,8,5 ],
+                [ 4,6,3,5,8,1,7,9,2 ],
+                [ 9,3,4,6,1,7,2,5,8 ],
+                [ 5,1,7,2,3,8,9,6,4 ],
+                [ 6,8,2,4,5,9,3,7,1 ],
+                [ 1,5,9,8,7,4,6,2,3 ],
+                [ 7,4,6,3,2,5,8,1,9 ],
+                [ 3,2,8,1,9,6,5,4,7 ]];
+
+// this function when called will get the given row from the sudoku puzzle and return it. it will return it in a array
+function getRow(puzzle, row) {
+
+let rowArray = [];
+
+for (let i = 0 ; i < puzzle[row].length ; i++){
+  rowArray[i] = puzzle [row][i];
+}
+return rowArray;
+
+
+
+ 
+}
+// this function when called will get the given column from the sudoku puzzle and return it. it will return it in a array
+function getColumn(puzzle, col) {
+  
+let rowArray = [];
+
+for (let i = 0 ; i< puzzle.length ; i++){
+rowArray.push(puzzle[i][col]);
+}
+return rowArray;
+
+
+ 
+}
+// this function  will get a specific grid from the puzzle and return it. it will return it in a array
+function getSection(puzzle, x, y) {
+let arr = [];
+  x *=  3;
+  y *=  3;
+
+  for (let i = y; i < y + 3; i++) {
+    for (let j = x; j < x + 3; j++) {
+      arr.push(puzzle[i][j]);
+    }
+  }
+  return arr;
+return arr;
+
+ 
+}
+// this function checks a given array the will be from either the grid, column or row arrays to see if there are any duplicates.
+function includes1To9(arr) {
+
+let duplicate = false;
+let i = 0;
+while (!duplicate && i < arr.length) {
+    if (arr.indexOf(arr[i]) !== arr.lastIndexOf(arr[i])) {
+      duplicate = true;
+    }
+    i++;
+  }
+  return !duplicate;
+
+
+}
+// this is the main function that utilizes all prior functions to check if user that inputed a sudoku puzzle has got it correct!
+function sudokuIsValid(puzzle) {
+
+
+let valid = true; 
+  let i = 0;
+    //for rows
+  if (valid== true){
+      
+  
+  while (i < 9 && valid == true) {
+    let rowArray = getRow(puzzle, i);
+    let duplicate = includes1To9(rowArray);
+    if (duplicate == false) {
+      valid = false;
+      return valid;
+    }
+    i++;
+  }
+ 
+}
+i = 0
+// for columns
+if (valid == true) {
+  while (i < 9 && valid == true) {
+    let ColumnwArray = getRow(puzzle, i);
+    let duplicate = includes1To9(ColumnwArray);
+    if (duplicate == false) {
+      valid = false;
+      return valid;
+    }
+  
+   i++; 
+}
+  
+}
+i =0
+
+// for each section of the sudoku grid
+if (valid == true){
+    
+    for (let i =0 ; i <3 ; i++){
+        
+        for (let j = 0 ; j< 3; j++){
+        let setionArray = getSection(puzzle,j,i);
+        let duplicate = includes1To9(setionArray);
+        if ( duplicate == false){
+            valid = false;
+            
+        }
+        }
+    }
+}
+return valid;
+  
+
+}
